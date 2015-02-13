@@ -2,20 +2,19 @@ var express = require('express');
 var router = express.Router();
 
 router.get('/iframe', function(req, res, next) {
-  console.log("iframe route in index")
   res.render('iframe');
 });
 
 router.get('/redirect', function(req, res, next) {
-  console.log("/redirect route");
   //redirect logic
-  console.log(req._parsedUrl);
-  //res.redirect('http://google.com');
+  //in here we take the encoded URI, decode it, find any custom data we want to add then forward to that domain.
+  var uri = decodeURI(req.param('uri'));
+  uri = uri.replace(/\{pmoID\}/g, "6549871231");;
+  res.redirect( uri );
 });
 
 router.get('/', function(req, res, next) {
-  console.log("home route")
-  res.render('index', { title: 'Express' });
+  res.render('index');
 });
 
 module.exports = router;
